@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StreetRacerGL", "StreetRacerGL\StreetRacerGL.vcxproj", "{B1F23C95-9B6F-46EB-B6C4-AD9BF47FB6C2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestGL", "TestGL\TestGL.vcxproj", "{D558FC17-A5D3-4FE7-93C7-3F401CA668D6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,14 +21,6 @@ Global
 		{B1F23C95-9B6F-46EB-B6C4-AD9BF47FB6C2}.Release|x64.Build.0 = Release|x64
 		{B1F23C95-9B6F-46EB-B6C4-AD9BF47FB6C2}.Release|x86.ActiveCfg = Release|Win32
 		{B1F23C95-9B6F-46EB-B6C4-AD9BF47FB6C2}.Release|x86.Build.0 = Release|Win32
-		{D558FC17-A5D3-4FE7-93C7-3F401CA668D6}.Debug|x64.ActiveCfg = Debug|x64
-		{D558FC17-A5D3-4FE7-93C7-3F401CA668D6}.Debug|x64.Build.0 = Debug|x64
-		{D558FC17-A5D3-4FE7-93C7-3F401CA668D6}.Debug|x86.ActiveCfg = Debug|Win32
-		{D558FC17-A5D3-4FE7-93C7-3F401CA668D6}.Debug|x86.Build.0 = Debug|Win32
-		{D558FC17-A5D3-4FE7-93C7-3F401CA668D6}.Release|x64.ActiveCfg = Release|x64
-		{D558FC17-A5D3-4FE7-93C7-3F401CA668D6}.Release|x64.Build.0 = Release|x64
-		{D558FC17-A5D3-4FE7-93C7-3F401CA668D6}.Release|x86.ActiveCfg = Release|Win32
-		{D558FC17-A5D3-4FE7-93C7-3F401CA668D6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

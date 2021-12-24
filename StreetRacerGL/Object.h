@@ -62,9 +62,9 @@ private:
         pos = rotate_matr*pos; // rotate
         pos = pos + vec4(position,0); // position
         
-        pos = gWorld*gView * pos;
+        pos = gWorld*gView* pos;
         
-        gl_Position = vec4(pos.rgb, 1.0);
+        gl_Position = pos;//vec4(pos.r,pos.g-0.2,pos.b,pos.a);
         textcoord = uv;
         constant = 1;
         FragPos = pos.rgb;
@@ -94,7 +94,7 @@ private:
   	
             // diffuse 
             vec3 norm = normalize(Normal);
-            vec3 lightDir = normalize(lightPos - FragPos);
+            vec3 lightDir = view;
             float diffuse = max(dot(norm, lightDir), 0.0);
             //vec3 diffuse = diff * lightColor;
     
@@ -128,7 +128,13 @@ private:
     GLint textureHandle;
     // SFML текстура
     sf::Texture textureData;
-    
+
+    std::vector<float> init{
+            1,0,0,0,
+            0,1,0,0,
+            0,0,1,0,
+            0,0,0,1
+    };
     void InitShader();
     void ShaderLog(unsigned int shader);
     void CheckOpenGLerror();
@@ -156,15 +162,21 @@ public:
             Vector3 result(vector.x/znam, vector.y / znam, vector.z / znam);
             return result;
         }
-        static Vector3 cross(Vector3 lhs, Vector3 rhs)
+        static Vector3 cross(const Vector3& lhs,const Vector3& rhs)
         {
             return Vector3(
                 lhs.y * rhs.z - lhs.z * rhs.y,
                 lhs.z * rhs.x - lhs.x * rhs.z,
                 lhs.x * rhs.y - lhs.y * rhs.x);
         }
-        static float dot(Vector3 vec1, Vector3 vec2) {
+        static float dot(const Vector3& vec1,const Vector3& vec2) {
             return vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z;
+        }
+        static float distance(const Vector3& vec1, const Vector3& vec2) {
+            float x = vec1.x - vec2.x;
+            float y = vec1.y - vec2.y;
+            float z = vec1.z - vec2.z;
+            return sqrt(x * x + y * y + z * z);
         }
     };
     struct Transform
@@ -210,6 +222,29 @@ public:
         glProgramUniform3f(Program, Unif_position, transform.position.x, transform.position.y, transform.position.z);
         glProgramUniformMatrix4fv(Program,unifgWorld, 1, GL_FALSE, &perspective_projection[0]);
         glProgramUniformMatrix4fv(Program, unifgView, 1, GL_FALSE, &camera_view[0]);
+        glActiveTexture(GL_TEXTURE0);
+        // Обёртка SFML на opengl функцией glBindTexture
+        sf::Texture::bind(&textureData);
+        glUniform1i(unifTexture, 0);
+        glBindVertexArray(VAO);
+
+        glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+
+        glBindVertexArray(0);
+
+    }
+    void Draw(const Vector3& lightpos,
+        const Vector3& view)
+{
+
+        glUseProgram(Program);
+        glUniform3f(unifViewVec, view.x, view.y, view.z);
+
+        glProgramUniform3f(Program, Unif_scale, transform.scale.x, transform.scale.y, transform.scale.z);
+        glProgramUniform3f(Program, Unif_rotation, transform.rotation.x, transform.rotation.y, transform.rotation.z);
+        glProgramUniform3f(Program, Unif_position, transform.position.x, transform.position.y, transform.position.z);
+        glProgramUniformMatrix4fv(Program, unifgWorld, 1, GL_FALSE, &init[0]);
+        glProgramUniformMatrix4fv(Program, unifgView, 1, GL_FALSE, &init[0]);
         glActiveTexture(GL_TEXTURE0);
         // Обёртка SFML на opengl функцией glBindTexture
         sf::Texture::bind(&textureData);
