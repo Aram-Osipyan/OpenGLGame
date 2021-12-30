@@ -38,13 +38,13 @@ public:
             switch (event.key.code) {
             case (sf::Keyboard::D): {
                 this->transform.position.x -= 0.01f;
-                this->transform.rotation.y = -0.04f;
+                this->transform.rotation.y = -0.08f;
 
             };
                                   break;
             case (sf::Keyboard::A): {
                 this->transform.position.x += 0.01f;
-                this->transform.rotation.y = 0.04f;
+                this->transform.rotation.y = 0.08f;
             }
                                   break;
 
